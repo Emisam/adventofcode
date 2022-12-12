@@ -40,16 +40,6 @@ function evaluateItem(item, expression) {
   }
 }
 
-// monkeys.forEach((monkey) =>
-//   console.log(
-//     "monkeey",
-//     monkey.items,
-//     monkey.testCondition,
-//     monkey.operation,
-//     monkey.ifTrue,
-//     monkey.ifFalse
-//   )
-// );
 for (let i = 0; i < 10000; i++) {
   monkeys.forEach((monkey) => {
     monkey.items.forEach((item) => {
