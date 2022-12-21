@@ -1,28 +1,16 @@
 const fs = require("fs");
-const data = fs.readFileSync("input\\day14.txt", "utf-8").split(/\r?\n/);
+const data = fs.readFileSync("examples\\day14.txt", "utf-8").split(/\r?\n/);
 
 const matrix = new Array(1000).fill(0).map(() => new Array(200).fill("."));
 
 function drawLine(p1, p2) {
   if (p1[0] === p2[0]) {
-    if (p1[1] > p2[1]) {
-      for (let i = p2[1]; i <= p1[1]; i++) {
-        matrix[p1[0]][i] = "#";
-      }
-    } else if (p1[1] < p2[1]) {
-      for (let i = p1[1]; i <= p2[1]; i++) {
-        matrix[p1[0]][i] = "#";
-      }
+    for (let i = Math.min(p2[1], p1[1]); i <= Math.max(p2[1], p1[1]); i++) {
+      matrix[p1[0]][i] = "#";
     }
   } else {
-    if (p1[0] > p2[0]) {
-      for (let i = p2[0]; i <= p1[0]; i++) {
-        matrix[i][p1[1]] = "#";
-      }
-    } else if (p1[0] < p2[0]) {
-      for (let i = p1[0]; i <= p2[0]; i++) {
-        matrix[i][p1[1]] = "#";
-      }
+    for (let i = Math.min(p1[0], p2[0]); i <= Math.max(p1[0], p2[0]); i++) {
+      matrix[i][p1[1]] = "#";
     }
   }
 }
@@ -60,7 +48,6 @@ function checkNext(point) {
 }
 
 let b = true;
-let sand = 0;
 while (b) {
   const startP = [500, 0];
   let c = true;
@@ -82,9 +69,6 @@ while (b) {
       console.log(line.join(""));
     }
   });
-  if (b) {
-    sand++;
-  }
 }
 console.log(
   matrix.reduce((acc, line) => acc + line.filter((v) => v === "O").length, 0)
